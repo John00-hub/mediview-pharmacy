@@ -1,0 +1,87 @@
+
+MEDIVIEW 2.0 — acceptance test against http://localhost:3000
+
+Public routes:
+  ✓ GET / → 200
+  ✓ GET /shop → 200
+  ✓ GET /c/pain-relief → 200
+  ✓ GET /c/vitamins-supplements → 200
+  ✓ GET /search?q=panadol → 200
+  ✓ GET /basket → 200
+  ✓ GET /enquiry → 200
+  ✓ GET /track → 200
+  ✓ GET /prescriptions → 200
+  ✓ GET /about → 200
+  ✓ GET /contact → 200
+  ✓ GET /faq → 200
+  ✓ GET /delivery-pickup → 200
+  ✓ GET /privacy → 200
+  ✓ GET /terms → 200
+  ✓ GET /staff/login → 200
+  ✓ GET /admin/login → 200
+
+Homepage integrity:
+  ✓ Homepage mentions brand
+  ✓ Homepage mentions verified address
+  ✓ Homepage mentions verified phone
+  ✓ NO fabricated ₦0.00 prices
+  ✓ NO fabricated ₦1.00 prices
+  ✓ Price-on-enquiry messaging present
+  ✓ JSON-LD Pharmacy present
+  ✓ Single <h1>
+
+SEO surface:
+  ✓ robots.txt served (demo: disallow all)
+  ✓ sitemap.xml served with product URLs
+  ✓ Legacy /25-skincare redirects
+  ✓ Legacy /content/4-about-us redirects to /about
+  ✓ Unknown path → custom 404
+  ✓ X-Robots-Tag noindex in demo
+  ✓ Security headers present
+
+Intelligent search:
+  ✓ Suggest returns Panadol matches
+  ✓ Typo tolerance (panadl → Panadol)
+  ✓ Generic-name match (paracetamol)
+  ✓ Search URL /search?q= renders results
+
+Product page:
+  ✓ Product resolvable
+  ✓ Product page renders
+  ✓ Product page: Price on enquiry (no numbers)
+  ✓ Product page: WhatsApp deep link
+  ✓ Product page: breadcrumbs
+  ✓ POM product exists with POM classification
+  ✓ POM page shows prescription gate
+  ✓ Controlled items excluded from catalogue
+
+Enquiry journey:
+  ✓ Enquiry submitted → 201 + reference
+  ✓ Invalid enquiry rejected (400)
+  ✓ Tracking requires ref+phone and works
+  ✓ POM enquiry auto-routed to AWAITING_PHARMACIST
+  ✓ Wrong phone cannot track (anti-enumeration)
+
+Role separation (staff):
+  ✓ Sales login succeeds
+  ✓ SALES cannot record pharmacist verification (403)
+  ✓ Pharmacist login succeeds
+  ✓ PHARMACIST records verification
+  ✓ Quote prepared → status QUOTE_PREPARED
+  ✓ Customer tracking reflects QUOTE_PREPARED + timeline
+  ✓ Staff queue page renders for pharmacist
+  ✓ Unauthenticated /staff redirects to login
+
+Admin product edit:
+  ✓ Admin login succeeds
+  ✓ Admin edits product
+  ✓ Storefront reflects admin edit immediately
+  ✓ Product URL (slug) unchanged after rename — SEO stability
+  ✓ SALES blocked from admin product edit (403)
+  ✓ Admin products page renders
+  ✓ SALES redirected away from /admin
+
+════════════════════════════════════════════════════════════
+RESULT: 64 passed, 0 failed
+════════════════════════════════════════════════════════════
+

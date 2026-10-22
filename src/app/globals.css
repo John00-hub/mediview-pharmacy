@@ -1,0 +1,209 @@
+@import "tailwindcss";
+
+/*
+ * MEDIVIEW PHARMACY — DESIGN TOKENS
+ * Derived from Intelligence Report §11: deep botanical green anchored on the
+ * live site's #305f3a, warm paper background, editorial typography, restrained
+ * radii, hairline rules. No gradients-as-decoration, no glassmorphism.
+ */
+@theme {
+  /* Brand — deep botanical green (refined from live-site #305f3a for AA contrast) */
+  --color-brand-50: #f1f7f3;
+  --color-brand-100: #e0ece5;
+  --color-brand-200: #c2d8ca;
+  --color-brand-300: #96bda4;
+  --color-brand-500: #3d7a58;
+  --color-brand-600: #2a6045;
+  --color-brand-700: #1e5b3f;
+  --color-brand-800: #1a4a35;
+  --color-brand-900: #143d2b;
+  --color-brand-950: #0c2a1d;
+
+  /* Muted sage (secondary) */
+  --color-sage-100: #e4ebe4;
+  --color-sage-200: #cdd9cd;
+  --color-sage-300: #aec1af;
+
+  /* Warm neutrals */
+  --color-paper: #faf8f4;
+  --color-surface: #f3f0e9;
+  --color-card: #ffffff;
+  --color-line: #e4ded2;
+  --color-line-strong: #cfc7b6;
+
+  /* Ink */
+  --color-ink: #1a1d1b;
+  --color-ink-soft: #4c554e;
+  --color-ink-faint: #7a827b;
+
+  /* Functional (status only — never decorative) */
+  --color-rx: #a3271e;
+  --color-rx-soft: #faeceb;
+  --color-enquiry: #8a5d00;
+  --color-enquiry-soft: #faf1dc;
+  --color-ok: #1e5b3f;
+  --color-ok-soft: #e7f0eb;
+
+  /* Typography */
+  --font-display: var(--font-montserrat), "Montserrat", ui-sans-serif, sans-serif;
+  --font-body: var(--font-source-sans), "Source Sans 3", ui-sans-serif, system-ui, sans-serif;
+
+  /* Radii — restrained */
+  --radius-xs: 2px;
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 10px;
+
+  /* Shadows — quiet */
+  --shadow-quiet: 0 1px 2px rgb(20 29 24 / 0.05);
+  --shadow-card: 0 1px 3px rgb(20 29 24 / 0.07), 0 4px 14px rgb(20 29 24 / 0.05);
+  --shadow-lift: 0 2px 6px rgb(20 29 24 / 0.09), 0 12px 28px rgb(20 29 24 / 0.08);
+
+  /* Motion */
+  --ease-out-soft: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --duration-fast: 150ms;
+  --duration-base: 220ms;
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+  body {
+    @apply bg-paper text-ink font-body antialiased;
+    font-synthesis-weight: none;
+    text-rendering: optimizeLegibility;
+  }
+  h1, h2, h3, h4 {
+    @apply font-display text-balance;
+    letter-spacing: -0.015em;
+  }
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-brand-700;
+  }
+  ::selection {
+    background: var(--color-brand-100);
+  }
+}
+
+@layer components {
+  .container-page {
+    @apply mx-auto w-full max-w-[1200px] px-4 sm:px-6 lg:px-8;
+  }
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-sm font-display text-sm font-semibold
+      transition-colors duration-200 disabled:pointer-events-none disabled:opacity-50
+      min-h-11 px-5 select-none;
+  }
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-sm font-display text-sm font-semibold
+      transition-colors duration-200 disabled:pointer-events-none disabled:opacity-50
+      min-h-11 px-5 select-none bg-brand-700 text-white hover:bg-brand-800 active:bg-brand-900;
+  }
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 rounded-sm font-display text-sm font-semibold
+      transition-colors duration-200 disabled:pointer-events-none disabled:opacity-50
+      min-h-11 px-5 select-none border border-brand-700 text-brand-800 hover:bg-brand-50;
+  }
+  .btn-quiet {
+    @apply inline-flex items-center justify-center gap-2 rounded-sm font-display text-sm font-semibold
+      transition-colors duration-200 disabled:pointer-events-none disabled:opacity-50
+      min-h-11 px-5 select-none border border-line-strong bg-card text-ink hover:border-brand-500 hover:text-brand-800;
+  }
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 rounded-sm font-display text-sm font-semibold
+      transition-colors duration-200 disabled:pointer-events-none disabled:opacity-50
+      min-h-11 px-5 select-none text-ink-soft hover:bg-surface hover:text-ink;
+  }
+  .btn-sm {
+    @apply min-h-9 px-3.5 text-[13px];
+  }
+  .field {
+    @apply w-full rounded-sm border border-line-strong bg-card px-3.5 py-2.5 text-[15px] text-ink
+      placeholder:text-ink-faint focus:border-brand-600 focus:outline-none focus:ring-2 focus:ring-brand-100;
+  }
+  .field-label {
+    @apply mb-1.5 block font-display text-[13px] font-semibold tracking-wide text-ink;
+  }
+  .field-error {
+    @apply mt-1.5 text-[13px] font-medium text-rx;
+  }
+  .badge {
+    @apply inline-flex items-center gap-1 rounded-xs px-2 py-0.5 font-display text-[11px] font-bold tracking-wider uppercase;
+  }
+  .badge-rx {
+    @apply inline-flex items-center gap-1 rounded-xs px-2 py-0.5 font-display text-[11px] font-bold tracking-wider uppercase bg-rx-soft text-rx;
+  }
+  .badge-enquiry {
+    @apply inline-flex items-center gap-1 rounded-xs px-2 py-0.5 font-display text-[11px] font-bold tracking-wider uppercase bg-enquiry-soft text-enquiry;
+  }
+  .badge-ok {
+    @apply inline-flex items-center gap-1 rounded-xs px-2 py-0.5 font-display text-[11px] font-bold tracking-wider uppercase bg-ok-soft text-ok;
+  }
+  .badge-neutral {
+    @apply inline-flex items-center gap-1 rounded-xs px-2 py-0.5 font-display text-[11px] font-bold tracking-wider uppercase bg-surface text-ink-soft;
+  }
+  .eyebrow {
+    @apply font-display text-[12px] font-bold tracking-[0.18em] text-brand-700 uppercase;
+  }
+  .card {
+    @apply rounded-md border border-line bg-card shadow-quiet;
+  }
+  .link-under {
+    @apply underline decoration-line-strong decoration-1 underline-offset-4 transition-colors hover:decoration-brand-700;
+  }
+  .table-spec {
+    @apply w-full text-[15px];
+  }
+  .table-spec th {
+    @apply w-2/5 py-2 pr-4 text-left align-top font-display text-[13px] font-semibold text-ink-faint uppercase tracking-wide;
+  }
+  .table-spec td {
+    @apply py-2 align-top text-ink;
+  }
+}
+
+/* Legal document typography (privacy / terms) */
+.prose-legal h2 {
+  @apply font-display text-[17px] font-bold text-ink mt-9;
+}
+.prose-legal h3 {
+  @apply font-display text-[15px] font-semibold text-ink mt-6;
+}
+.prose-legal p {
+  @apply mb-3.5;
+}
+.prose-legal ul {
+  @apply mb-3.5 list-disc pl-5 space-y-1.5;
+}
+.prose-legal a {
+  @apply text-brand-700 underline decoration-line-strong underline-offset-4 hover:decoration-brand-700;
+}
+.prose-legal strong {
+  @apply font-semibold text-ink;
+}
+
+/* Skeleton shimmer — purposeful loading states only */
+@keyframes shimmer {
+  0% { background-position: -400px 0; }
+  100% { background-position: 400px 0; }
+}
+.skeleton {
+  @apply rounded-sm bg-surface;
+  background-image: linear-gradient(90deg, transparent, rgb(255 255 255 / 0.6), transparent);
+  background-size: 400px 100%;
+  background-repeat: no-repeat;
+  animation: shimmer 1.4s infinite linear;
+}
+@media (prefers-reduced-motion: reduce) {
+  .skeleton { animation: none; }
+}
